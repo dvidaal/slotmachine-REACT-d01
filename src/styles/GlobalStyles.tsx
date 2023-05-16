@@ -30,6 +30,7 @@ h1,
 h2 {
   font-size: 30px;
   margin: 0;
+  font-family: "Press Start 2P";
 }
 
 .container{
