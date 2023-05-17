@@ -35,7 +35,7 @@ const SlotMachine = () => {
   return (
     <SlotMachineStyled>
       <div className="figures">
-        {slot1} | {slot2} | {slot3}
+        {slot1} {slot2} {slot3}
       </div>
       <div className="price-message">{message}</div>
       <Button className={"roll"} action={randomFigures} message="ROLL" />
