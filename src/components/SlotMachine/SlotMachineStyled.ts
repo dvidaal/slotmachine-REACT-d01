@@ -11,7 +11,6 @@ const SlotMachineStyled = styled.div`
     font-family: "Roboto";
     margin: 30px;
     font-size: 1.5rem;
-    width: 500px;
     height: 50px;
   }
 
@@ -22,6 +21,10 @@ const SlotMachineStyled = styled.div`
     font-size: 6rem;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
       rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+
+    @media (max-width: 420px) {
+      font-size: 4rem;
+    }
   }
 
   .instructions {
@@ -76,22 +79,6 @@ const SlotMachineStyled = styled.div`
     100% {
       color: #000;
     }
-  }
-
-  button {
-    font-family: inherit;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 134px;
-    height: 56px;
-    background-color: #ffff00;
-    border-radius: 20px;
-    cursor: pointer;
-    border: none;
-    font-family: "Press Start 2P";
-    margin: 30px;
   }
 `;
 
