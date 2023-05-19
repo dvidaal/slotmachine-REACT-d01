@@ -13,7 +13,7 @@ const ButtonStyled = styled.button`
   cursor: pointer;
   border: none;
   font-family: "Press Start 2P";
-  margin: 30px;
+  margin: 10px;
 `;
 
 export default ButtonStyled;
