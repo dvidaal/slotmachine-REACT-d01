@@ -4,12 +4,13 @@ const useSlotMachine = () => {
   const figures: string[] = ["🍒", "🍇", "🍊", "🍓", "🍉", "🍋"];
   const jackpot: number = 2500;
 
-  const [slot, setSlots] = useState({
+  const initialSlots = {
     slot1: "🚨",
     slot2: "🚨",
     slot3: "🚨",
-  });
+  };
 
+  const [slot, setSlots] = useState(initialSlots);
   const [message, setMessage] = useState("");
   const [amount, setAmount] = useState(0);
   const [jackpotTotal, setJackpotTotal] = useState(0);
@@ -25,8 +26,8 @@ const useSlotMachine = () => {
       if (newSlot1 === "🍇") {
         setMessage(
           `¡Felicidades! Has ganado el JACKPOT de ${
-            jackpot + jackpotTotal
-          }€ 🥇. ¡Vuelve a jugar para tener otra oportunidad!`
+            jackpot + jackpotTotal + amount
+          }€ 🥇. ¡Además del bote actual!`
         );
         setAmount(0);
         setJackpotTotal(0);
@@ -47,9 +48,10 @@ const useSlotMachine = () => {
     }
   };
 
-  const resetGame = () => {
+  const resetGame = (): void => {
     setMessage("");
     setAmount(0);
+    setSlots(initialSlots); // Restablece las alarmas
   };
 
   return {
