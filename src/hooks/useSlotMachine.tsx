@@ -51,7 +51,7 @@ const useSlotMachine = () => {
   const resetGame = (): void => {
     setMessage("");
     setAmount(0);
-    setSlots(initialSlots); // Restablece las alarmas
+    setSlots(initialSlots);
   };
 
   return {
