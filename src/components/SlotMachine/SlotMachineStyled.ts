@@ -56,13 +56,6 @@ const SlotMachineStyled = styled.div`
     animation: blinkingText 1.2s infinite;
   }
 
-  .reset-game {
-    background-color: #14a839;
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-  }
-
   @keyframes blinkingText {
     0% {
       color: #000;
@@ -78,6 +71,20 @@ const SlotMachineStyled = styled.div`
     }
     100% {
       color: #000;
+    }
+  }
+
+  .secondary-button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &__reset-game {
+      background-color: #14a839;
+    }
+
+    &__hack-jackpot {
+      background-color: #de2727;
     }
   }
 `;

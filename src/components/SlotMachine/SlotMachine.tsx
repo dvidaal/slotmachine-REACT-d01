@@ -9,6 +9,8 @@ const SlotMachine = (): JSX.Element => {
     amount,
     jackpot,
     jackpotTotal,
+    jackpotSuccessRate,
+    hackJackpotSuccessRate,
     getRandomFigures,
     resetGame,
   } = useSlotMachine();
@@ -24,6 +26,9 @@ const SlotMachine = (): JSX.Element => {
         <span className="container-balance__jackpot">
           Jackpot: {jackpot + jackpotTotal}€
         </span>
+        {jackpotSuccessRate > 0 && (
+          <span>{jackpotSuccessRate}% de éxito para ganar el Jackpot</span>
+        )}
       </div>
       <Button
         className={"roll"}
@@ -32,7 +37,18 @@ const SlotMachine = (): JSX.Element => {
         }}
         message="ROLL"
       />
-      <Button className={"reset-game"} action={resetGame} message="RESET" />
+      <div className="secondary-button-container">
+        <Button
+          className={"secondary-button-container__hack-jackpot"}
+          action={() => hackJackpotSuccessRate()}
+          message="HACK"
+        />
+        <Button
+          className={"secondary-button-container__reset-game"}
+          action={resetGame}
+          message="RESET"
+        />
+      </div>
     </SlotMachineStyled>
   );
 };
