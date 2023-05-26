@@ -6,7 +6,14 @@ describe("Given a Button", () => {
     test("Then it should show a `ROLL` message", () => {
       const buttonText = "ROLL";
 
-      render(<Button className={""} action={() => {}} message={"ROLL"} />);
+      render(
+        <Button
+          className={""}
+          action={() => {}}
+          message={"ROLL"}
+          isDisabled={false}
+        />
+      );
 
       const expectedButton = screen.getByRole("button", { name: buttonText });
 
