@@ -18,59 +18,75 @@ const useSlotMachine = () => {
   const [jackpotSuccessRate, setJackpotSuccessRate] = useState(0);
   const [rollCount, setRollCount] = useState(0);
   const [neededClicks, setNeededClicks] = useState(0);
+  const [rolling, setRolling] = useState(false);
 
   const getRandomFigures = (): void => {
-    setRollCount(rollCount + 1);
+    setRolling(true);
 
-    if (rollCount === neededClicks - 1) {
-      setSlots({
-        slot1: "🍇",
-        slot2: "🍇",
-        slot3: "🍇",
-      });
-      setMessage(
-        `¡Felicidades! Has ganado el JACKPOT de ${
-          jackpot + jackpotTotal + amount
-        }€ 🥇. ¡Además del bote actual!`
-      );
-      setNeededClicks(0);
-      setJackpotTotal(0);
-      setAmount(0);
-      setRollCount(0);
-      setJackpotSuccessRate(0);
-      return;
-    }
+    const interval = setInterval(() => {
+      const newSlot1 = figures[Math.floor(Math.random() * figures.length)];
+      const newSlot2 = figures[Math.floor(Math.random() * figures.length)];
+      const newSlot3 = figures[Math.floor(Math.random() * figures.length)];
 
-    const newSlot1 = figures[Math.floor(Math.random() * figures.length)];
-    const newSlot2 = figures[Math.floor(Math.random() * figures.length)];
-    const newSlot3 = figures[Math.floor(Math.random() * figures.length)];
+      setSlots({ slot1: newSlot1, slot2: newSlot2, slot3: newSlot3 });
+    }, 100);
 
-    setSlots({ slot1: newSlot1, slot2: newSlot2, slot3: newSlot3 });
+    setTimeout(() => {
+      setRollCount(rollCount + 1);
+      setRolling(false);
 
-    if (newSlot1 === newSlot2 && newSlot2 === newSlot3) {
-      if (newSlot1 === "🍇") {
+      if (rollCount === neededClicks - 1) {
+        setSlots({
+          slot1: "🍇",
+          slot2: "🍇",
+          slot3: "🍇",
+        });
         setMessage(
           `¡Felicidades! Has ganado el JACKPOT de ${
             jackpot + jackpotTotal + amount
           }€ 🥇. ¡Además del bote actual!`
         );
-        setAmount(0);
+        clearInterval(interval);
+        setNeededClicks(0);
         setJackpotTotal(0);
-      } else {
-        setMessage(`¡Felicidades! Has ganado 100€ 🤑`);
-        setAmount((prevBalance) => prevBalance + 100);
+        setAmount(0);
+        setRollCount(0);
+        setJackpotSuccessRate(0);
+        return;
       }
-    } else if (
-      newSlot1 === newSlot2 ||
-      newSlot1 === newSlot3 ||
-      newSlot2 === newSlot3
-    ) {
-      setMessage("¡Bien hecho! Has ganado 50€ 🚀");
-      setAmount((prevBalance) => prevBalance + 50);
-    } else {
-      setMessage("Lo siento, no has ganado nada");
-      setJackpotTotal((prevJackpot) => prevJackpot + 5);
-    }
+
+      const newSlot1 = figures[Math.floor(Math.random() * figures.length)];
+      const newSlot2 = figures[Math.floor(Math.random() * figures.length)];
+      const newSlot3 = figures[Math.floor(Math.random() * figures.length)];
+
+      setSlots({ slot1: newSlot1, slot2: newSlot2, slot3: newSlot3 });
+
+      if (newSlot1 === newSlot2 && newSlot2 === newSlot3) {
+        if (newSlot1 === "🍇") {
+          setMessage(
+            `¡Felicidades! Has ganado el JACKPOT de ${
+              jackpot + jackpotTotal + amount
+            }€ 🥇. ¡Además del bote actual!`
+          );
+          setAmount(0);
+          setJackpotTotal(0);
+        } else {
+          setMessage(`¡Felicidades! Has ganado 100€ 🤑`);
+          setAmount((prevBalance) => prevBalance + 100);
+        }
+      } else if (
+        newSlot1 === newSlot2 ||
+        newSlot1 === newSlot3 ||
+        newSlot2 === newSlot3
+      ) {
+        setMessage("¡Bien hecho! Has ganado 50€ 🚀");
+        setAmount((prevBalance) => prevBalance + 50);
+      } else {
+        setMessage("Lo siento, no has ganado nada");
+        setJackpotTotal((prevJackpot) => prevJackpot + 5);
+      }
+      clearInterval(interval);
+    }, 1000);
   };
 
   const resetGame = (): void => {
@@ -87,6 +103,9 @@ const useSlotMachine = () => {
     const newSuccessRate = Math.floor(Math.random() * 100) + 1;
     setJackpotSuccessRate(newSuccessRate);
 
+    if (newSuccessRate === 0 && newSuccessRate >= 9) {
+      setNeededClicks(10);
+    }
     if (newSuccessRate >= 10 && newSuccessRate <= 30) {
       setNeededClicks(8);
     }
@@ -111,6 +130,7 @@ const useSlotMachine = () => {
     jackpot,
     jackpotTotal,
     jackpotSuccessRate,
+    rolling,
     hackJackpotSuccessRate,
     getRandomFigures,
     resetGame,

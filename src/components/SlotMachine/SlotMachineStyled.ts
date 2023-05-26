@@ -45,6 +45,10 @@ const SlotMachineStyled = styled.div`
       text-transform: uppercase;
       color: #de2727;
     }
+
+    &__rate {
+      height: 20px;
+    }
   }
 
   .timer {
